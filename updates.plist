@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Extension Updates</key>
+	<array>
+		<dict>
+			<key>CFBundleIdentifier</key>
+			<string>com.willWhite.safari.ftfy</string>
+			<key>Developer Identifier</key>
+			<string>UR8GJ3T95X</string>
+			<key>CFBundleVersion</key>
+			<string>1.0</string>
+			<key>CFBundleShortVersionString</key>
+			<string>1.0</string>
+			<key>URL</key>
+			<string>https://github.com/willnwhite/ftfy/ftfy.safariextz</string>
+		</dict>
+	</array>
+</dict>
+</plist>
