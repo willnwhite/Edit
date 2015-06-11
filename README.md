@@ -1,3 +1,3 @@
 # FTFY
 Fixed That For You: report msitakes to webmasters in three clicks.
-Click on the ftfy.safariextz file to download FTFY. Open the downloaded file to install it in your Safari web browser.
+Click on ftfy.safariextz, then "Raw", to download. Open the downloaded file to install FTFY into your Safari web browser.
