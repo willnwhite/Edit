@@ -1,0 +1,13 @@
+{
+  "title": "Fixed That For You",
+  "name": "ftfy",
+  "version": "0.0.1",
+  "description": "Report msitakes to webmasters by right-clicking on them.",
+  "main": "addon-script.js",
+  "author": "Will White",
+  "engines": {
+    "firefox": ">=38.0a1",
+    "fennec": ">=38.0a1"
+  },
+  "license": "MIT"
+}
