@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Will White</string>
 	<key>Builder Version</key>
-	<string>10600.4.10.7</string>
+	<string>10601.4.4</string>
 	<key>CFBundleDisplayName</key>
 	<string>FTFY</string>
 	<key>CFBundleIdentifier</key>
@@ -24,9 +24,9 @@
 				<key>Command</key>
 				<string>fix-that</string>
 				<key>Identifier</key>
-				<string>fixThatItem</string>
+				<string>editItem</string>
 				<key>Title</key>
-				<string>Fix That</string>
+				<string>Edit</string>
 			</dict>
 		</array>
 		<key>Global Page</key>
@@ -45,7 +45,7 @@
 	<key>Description</key>
 	<string>Fixed That For You: report msitakes to webmasters in three clicks</string>
 	<key>DeveloperIdentifier</key>
-	<string>UR8GJ3T95X</string>
+	<string>0000000000</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>

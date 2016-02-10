@@ -1,73 +1,69 @@
 <!DOCTYPE HTML>
-
 <html>
-    <script>
-    
-    // Remove any console.log().
-    
-    var selection;
-    var FTFY_website = "https://github.com/willnwhite/FTFY"; // v1.1 Change to extensions.apple.com/... // v1.1 Does JavaScript have constants, rather than using variables for this?
-    var hostname;
-    
-    safari.application.addEventListener("command", myCommandHandler, false);
-    safari.application.addEventListener("message", handleMessage, false);
-    
-    function myCommandHandler(event) {
-        
-        if (event.command === "fix-that") {
-            
-            safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("webpageDataPlease");
-            selection = event.userInfo;
-            
-        }
-    }
-    
-    function handleMessage(event) {
-        
-        if (event.name === "hostnameHere") {
-            
-            hostname = event.message;
-            
-        }
-        
-        if (event.name === "addressesHere") {
-            
-            var bcc_addresses = event.message;
-            var signature = safari.extension.settings.signature;
-            var activeTab = safari.application.activeBrowserWindow.activeTab;
-            var webpage_title = activeTab.title;
-            
-            var url = activeTab.url;
-            // v1.1 Get string between http(s):// and next / or : (port) from url (for webmaster@domain-part), to save messaging hostname from injected script. Though is it better to use application data than reading DOM? (Makes cross-browser support harder.)
+<script>
+var selection;
+var FTFY_website = "https://github.com/willnwhite/FTFY"; // v1.1 Change to extensions.apple.com/... // v1.1 Does JavaScript have constants, rather than using variables for this?
+var hostname;
 
-            function getDomainName(any_hostname) { // Thanks to http://stackoverflow.com/a/16451961/2586790 ("pretty accurate") // v1.1 https://publicsuffix.org/list/effective_tld_names.dat for list of TLDs.
-                var parts = any_hostname.split('.').reverse();
-                var cnt = parts.length;
-                if (cnt >= 3) {
-                    // see if the second level domain is a common SLD.
-                    if (parts[1].match(/^(com|edu|gov|net|mil|org|nom|co|name|info|biz)$/i)) {
-                        return parts[2] + '.' + parts[1] + '.' + parts[0];
-                    }
-                }
-                return parts[1]+'.'+parts[0];
-            }
-            
-            domain_part = getDomainName(hostname);
-            
-            if (!bcc_addresses) bcc_addresses = ""; else bcc_addresses = "&bcc=" + bcc_addresses;
-            
-            safari.application.activeBrowserWindow.activeTab.url = "mailto:" + "Webmaster@" + domain_part + "?subject=Mistake on webpage %22" + webpage_title + "%22" /* v1.1 Insert "+ bcc_addresses" here when they can be disabled by user in extension settings */+ "&body=Dear Webmaster,%0A%0AI%27ve noticed a mistake on your webpage %22" + webpage_title + "%22 (" + url + "):%0A%0A%22" + selection + "%22%0A%0AYours sincerely,%0A%0A" + signature + "%0A%0A---%0A%0ASent with Fixed That For You. " + FTFY_website; // v1.1 Do spaces need percentage-encoding, i.e. %20? Working without it for me in Safari/Mail. // v1.1 Remove any "REMOVE FOR V1.1 " safety catches. // Give location in webpage? How? // v1.1 Let user choose BCC addresses. // If webmaster@domainpart doesn't work (postmaster "delivery failed"), ask user to forward email to D-2mnjz3sjtyonj67@maildrop.cc . // v1.1 Fix bug where right-clicking on blank space, e.g. side of https://www.hesa.ac.uk/dlhelong0809_contents, ruins email body. // v1.1 Shorten selection to sentence that contains the mistake, or embolden mistake. // v1.1 Point to dynamic content, i.e. that might not be there when the recipient opens the link given in the email, e.g. the "RELATED NEWS" items at the bottom of http://www.techradar.com/news/internet/web/top-free-hosting-for-uk-businesses-1214296/2 .
-        }
+safari.application.addEventListener("command", myCommandHandler, false);
+safari.application.addEventListener("message", handleMessage, false);
+
+function myCommandHandler(event) {
+
+  if (event.command === "fix-that") {
+
+    safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("webpageDataPlease");
+    selection = event.userInfo;
+
+  }
+}
+
+function handleMessage(event) {
+
+  if (event.name === "hostnameHere") {
+
+    hostname = event.message;
+
+  }
+
+  if (event.name === "addressesHere") {
+
+    var bcc_addresses = event.message;
+    var signature = safari.extension.settings.signature;
+    var activeTab = safari.application.activeBrowserWindow.activeTab;
+    var webpage_title = activeTab.title;
+
+    var url = activeTab.url;
+    // v1.1 Get string between http(s):// and next / or : (port) from url (for webmaster@domain-part), to save messaging hostname from injected script. Though is it better to use application data than reading DOM? (Makes cross-browser support harder.)
+
+  function getDomainName(any_hostname) { // http://stackoverflow.com/a/16451961/2586790 ("pretty accurate") // v1.1 https://publicsuffix.org/list/effective_tld_names.dat for list of TLDs.
+    var parts = any_hostname.split('.').reverse();
+    var cnt = parts.length;
+    if (cnt >= 3) {
+      // see if the second level domain is a common SLD.
+      if (parts[1].match(/^(com|edu|gov|net|mil|org|nom|co|name|info|biz)$/i)) {
+        return parts[2] + '.' + parts[1] + '.' + parts[0];
+      }
     }
-    
-    /* When the user Control-clicks or right-clicks in the web content window, a series of events are fired before the contextual menu is displayed:
-     
-     A "contextmenu" extension event that you can listen for in your global page or an extension bar.
-     This event gives you the opportunity to add menu items programmatically. You can read the context information set by your injected script to help you determine what menu items to add, e.g. v2.0 corrections, email addresses
-     
-     A "validate" event for each menu item.
-     This event gives you the opportunity to disable menu items that should not be displayed, or modify a menu item’s title, e.g. "focus [FTFY]". */
-    
-    // v1.1 Change v1.0 ("Display version" in Extension Builder) to v1.1
-    </script>
+    return parts[1]+'.'+parts[0];
+  }
+
+  domain_part = getDomainName(hostname);
+
+  if (!bcc_addresses) bcc_addresses = ""; else bcc_addresses = "&bcc=" + bcc_addresses;
+
+  safari.application.activeBrowserWindow.activeTab.url = "mailto:" + "Webmaster@" + domain_part + "?subject=Mistake on webpage %22" + webpage_title + "%22" /* v1.1 Insert "+ bcc_addresses" here when they can be disabled by user in extension settings */+ "&body=Dear Webmaster,%0A%0AI%27ve noticed a mistake on your webpage %22" + webpage_title + "%22 (" + url + "):%0A%0A%22" + selection + "%22%0A%0AYours sincerely,%0A%0A" + signature + "%0A%0A---%0A%0ASent with Fixed That For You. " + FTFY_website; // v1.1 Do spaces need percentage-encoding, i.e. %20? Working without it for me in Safari/Mail. // v1.1 Remove any "REMOVE FOR V1.1 " safety catches. // Give location in webpage? How? // v1.1 Let user choose BCC addresses. // If webmaster@domainpart doesn't work (postmaster "delivery failed"), ask user to forward email to D-2mnjz3sjtyonj67@maildrop.cc . // v1.1 Fix bug where right-clicking on blank space, e.g. side of https://www.hesa.ac.uk/dlhelong0809_contents, ruins email body. // v1.1 Shorten selection to sentence that contains the mistake, or embolden mistake. // v1.1 Point to dynamic content, i.e. that might not be there when the recipient opens the link given in the email, e.g. the "RELATED NEWS" items at the bottom of http://www.techradar.com/news/internet/web/top-free-hosting-for-uk-businesses-1214296/2 .
+}
+}
+
+/* When the user Control-clicks or right-clicks in the web content window, a series of events are fired before the contextual menu is displayed:
+
+A "contextmenu" extension event that you can listen for in your global page or an extension bar.
+This event gives you the opportunity to add menu items programmatically. You can read the context information set by your injected script to help you determine what menu items to add, e.g. v2.0 corrections, email addresses
+
+A "validate" event for each menu item.
+This event gives you the opportunity to disable menu items that should not be displayed, or modify a menu item’s title, e.g. "focus [FTFY]". */
+
+// v1.1 Change v1.0 ("Display version" in Extension Builder) to v1.1
+</script>
 </html>

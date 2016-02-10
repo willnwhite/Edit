@@ -1,13 +1,25 @@
 {
-  "title": "Fixed That For You",
-  "name": "ftfy",
+  "title": "Edit",
+  "name": "edit",
   "version": "0.0.1",
-  "description": "Report msitakes to webmasters by right-clicking on them.",
-  "main": "addon-script.js",
+  "description": "Edit the Internet.",
+  "main": "index.js",
   "author": "Will White",
   "engines": {
     "firefox": ">=38.0a1",
     "fennec": ">=38.0a1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": [
+    "jetpack"
+  ],
+  "dependencies": {
+    "dexie": "^1.2.0"
+  },
+  "preferences": [{
+    "type": "string",
+    "name": "stylePropertiesToMatch",
+    "value": "height, width, background-color, color, line-height, font-family",
+    "title": "Set edit box style to text style on these properties:"
+  }]
 }
